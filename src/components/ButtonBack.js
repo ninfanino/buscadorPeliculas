@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export const ButtonBack = () => (
+const ButtonBack = () => (
     <Link
         className="button is-info"
         to="/"
@@ -9,3 +9,5 @@ export const ButtonBack = () => (
         Back to Home
     </Link>
 )
+
+export default ButtonBack;

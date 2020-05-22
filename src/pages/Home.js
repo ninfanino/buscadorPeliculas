@@ -1,39 +1,36 @@
-import React, { Component } from 'react';
-import { Title } from '../components/Title';
-import { SearchForm } from '../components/SearchForm';
-import { MoviesList } from '../components/MoviesList';
+import React, { useState } from 'react';
+import Title from '../components/Title';
+import SearchForm from '../components/SearchForm';
+import MoviesList from '../components/MoviesList';
 
-export default class Home extends Component {
-    state = { 
-        results: [],
-        usedSearch:false
-      }
-    
-      _handleResults = (results) => {
-        this.setState({
-          results,
-          usedSearch:true
-        })
-      }
-    
-      _renderResults = () => {
-        return this.state.results.length === 0
-        ? <p>Sorry! Results not found</p>
-        : <MoviesList movies={this.state.results}/>
-      }
-    render() {
-        return (
-            <div>
-                <Title>Search Movies</Title>
-                <div className="SearchForm-wrapper">
-                <SearchForm onResults={this._handleResults}/>
-                </div>
-                {
-                this.state.usedSearch
-                ? this._renderResults()
-                : <small>Use the form to search a movie</small>
-                }
-            </div>
-        )
-    }
+const Home = () => {
+  const [results, setResults] = useState([]);
+  const [usedSearch, setUsedSearch] = useState(false);
+
+  const _handleResults = (results) => {
+    setResults(results);
+    setUsedSearch(true);
+  }
+
+  const _renderResults = () => {
+    return results.length === 0
+    ? <p>Sorry! Results not found</p>
+    : <MoviesList movies={results}/>
+  }
+
+    return (
+      <React.Fragment>
+        <Title>Search Movies</Title>
+        <div className="SearchForm-wrapper">
+          <SearchForm onResults={_handleResults}/>
+        </div>
+        {
+          usedSearch
+            ? _renderResults()
+            : <small>Use the form to search a movie</small>
+        }
+      </React.Fragment>
+    )
 }
+
+export default Home;

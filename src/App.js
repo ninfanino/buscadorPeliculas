@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Detail from './pages/Detail';
@@ -10,9 +10,7 @@ import './App.css';
 
 
 
-class App extends Component {
-  render() {
-    return (
+const App = () => (
       <div className="App">
         <Switch>
           <Route exact path='/' component={Home}/>
@@ -20,8 +18,6 @@ class App extends Component {
           <Route component={NotFound} />
         </Switch>
       </div>
-    );
-  }
-}
+)
 
 export default App;

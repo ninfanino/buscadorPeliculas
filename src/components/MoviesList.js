@@ -1,14 +1,8 @@
-import React, {Component} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Movie } from './Movie';
+import Movie from './Movie';
 
-export class MoviesList extends Component {
-    static propTypes = {
-        movies: PropTypes.array
-    }
-    render() {
-        const { movies } = this.props;
-        return (
+const MoviesList = ({ movies }) => (
             <div className="MoviesList">
                 {
                 movies.map((movie) => {
@@ -25,6 +19,10 @@ export class MoviesList extends Component {
                 })
                 }
             </div>
-        )
-    }
+)
+
+MoviesList.propTypes = {
+    movies: PropTypes.array
 }
+
+export default MoviesList;
