@@ -1,26 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ButtonBack from '../components/ButtonBack';
 
-const API_KEY = '4670d725';
-
-const Detail = ({match}) => {
-    const [movie, setMovie] = useState({});
-
-    const _fetchMovie = ({id}) => {
-        fetch(`http://www.omdbapi.com/?apikey=${API_KEY}&i=${id}`)
-            .then(res => res.json())
-            .then(movie => {
-                setMovie(movie);
-            });
-    }
-
+const Detail = ({match, info, isLoading, error, selectedMovie, getMovieInfo, dispatchSelectedMovie}) => {
     useEffect(() => {
         const { id } = match.params;
-        _fetchMovie({id})
-    }, [match.params]);
+        if(Object.entries(info).length === 0 || (id !== selectedMovie)) {
+            dispatchSelectedMovie(id);
+            getMovieInfo(id);
+        }
+    }, [match.params, dispatchSelectedMovie, getMovieInfo]);
+
+    if (isLoading) { return <p>Loading...</p>}
+    if (error) { return <p>Error, try later</p>}
     
-        const { Title, Poster, Actors, Metascore, Plot } = movie;
+    
+
+    const { Title, Poster, Actors, Metascore, Plot } = info;
         return (
             <div>
                 <ButtonBack/>
@@ -31,6 +27,7 @@ const Detail = ({match}) => {
                 <p>{Plot}</p>
             </div>
         )
+
 }
 
 Detail.propTypes = {

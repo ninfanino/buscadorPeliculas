@@ -1,21 +1,23 @@
 import React, { useState } from 'react';
 import Title from '../components/Title';
 import SearchForm from '../components/SearchForm';
-import MoviesList from '../components/MoviesList';
+import MoviesListContainer from '../containers/MovieListContainer';
 
-const Home = () => {
-  const [results, setResults] = useState([]);
+const Home = ({results, isLoading, error, getAllMovies, selectedMovie}) => {
   const [usedSearch, setUsedSearch] = useState(false);
 
-  const _handleResults = (results) => {
-    setResults(results);
+  if (isLoading) { return <p>Loading...</p>}
+  if (error) { return <p>Error, try later</p>}
+
+  const _handleResults = (search) => {
     setUsedSearch(true);
+    getAllMovies(search);
   }
 
   const _renderResults = () => {
     return results.length === 0
     ? <p>Sorry! Results not found</p>
-    : <MoviesList movies={results}/>
+    : <MoviesListContainer/>
   }
 
     return (

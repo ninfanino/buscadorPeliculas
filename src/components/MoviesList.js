@@ -2,27 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Movie from './Movie';
 
-const MoviesList = ({ movies }) => (
-            <div className="MoviesList">
-                {
-                movies.map((movie) => {
-                    return (
-                        <div key={movie.imdbID} className="MovieList-item">
-                            <Movie 
-                                title={movie.Title}
-                                year={movie.Year}
-                                poster={movie.Poster}
-                                id={movie.imdbID}
-                            />
-                        </div>
-                    )
-                })
-                }
-            </div>
+const MoviesList = ({ movies, selectedMovie }) => (
+    <div className="MoviesList">
+        {
+        Object.keys(movies).map((movie) => {
+            return (
+                <div key={movies[movie].imdbID} className="MovieList-item">
+                    <Movie 
+                        title={movies[movie].Title}
+                        year={movies[movie].Year}
+                        poster={movies[movie].Poster}
+                        id={movies[movie].imdbID}
+                        selectedMovie={selectedMovie}
+                    />
+                </div>
+            )
+        })
+        }
+    </div>
 )
 
 MoviesList.propTypes = {
-    movies: PropTypes.array
+    movies: PropTypes.object
 }
 
 export default MoviesList;

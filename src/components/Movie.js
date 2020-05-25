@@ -1,9 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom'
 
-const Movie = ({ id, poster, title, year }) => (
-            <Link to={`/detail/${id}`} className="card">
+const Movie = ({ id, poster, title, year, selectedMovie }) => {
+    let history = useHistory();
+    const _handleClick = (e) => {
+        const idMovie = e.currentTarget.getAttribute('id');
+        selectedMovie(idMovie);
+        history.push(`/detail/${idMovie}`)
+    }
+    return (
+            <button id={id} onClick={_handleClick} className="card">
                 <div className="card-image">
                     <figure className="image is-4by3">
                         <img 
@@ -19,8 +26,9 @@ const Movie = ({ id, poster, title, year }) => (
                         </div>
                     </div>
                 </div>
-            </Link>
-        )
+            </button>
+    )
+}
 
 Movie.propTypes = {
     id: PropTypes.string,
